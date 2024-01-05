@@ -1,17 +1,23 @@
 TODO:
-	- finish messing around with difficulty buttons
-	- fix the elements so that when we resize it doesn't cause a problem (maybe have a min size property)
+	- Different colours between generated numbers and input numbers
 
 	- Implement the ability to erase a number:
-    	Add a button or action to erase the content of the selected cell.
-    	Decrement the mistake count if the erased move was previously counted as a mistake.
+    		Add a button or action to erase the content of the selected cell.
+	    	Decrement the mistake count if the erased move was previously counted as a mistake.
 
 	- Implement the ability to undo:
 	    Track the history of the player's moves (insertions).
 	    Create a function to undo the last move.
 	    Update the mistake count accordingly when undoing moves.
 
-	- Colorize the latest input in red:
+	- Colorise the latest input in red:
 	    When a player makes an input, track the latest input's position.
-	    Create a function to colorize a specific button (cell) based on its position.
+	    Create a function to colorise a specific button (cell) based on its position.
 
+  	- On New Game button (the one on the right): Ask the user if he's sure about it.
+		good for optimising too (gets rid of repetitive clicks)
+
+	- When highlighting/Focusing same number, check if we click the same carreau/number for 		optimisation.	
+
+
+	- Inserted value should get focus if correct input

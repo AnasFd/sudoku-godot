@@ -33,6 +33,7 @@ func _ready():
 	initGrids()
 	generateNewGrid()
 	connectSignals()
+	setPauseButtonProperties()
 
 func _process(_delta: float):
 	if errors >= MAXERRORS:
@@ -91,6 +92,7 @@ func showMaxErrorsMessage():
 func resetPopUps():
 	$PopupDialog/VBoxContainer/MessageLabel.text = ""
 	$PopupDialog.visible = false
+	$PausePopUp.visible = false
 
 func updateElapsedTime():
 	var currentTime = OS.get_system_time_secs()
@@ -159,6 +161,15 @@ func initGrids():
 			button.connect("pressed", self, "_on_button_pressed", [i, j])
 			gameGrid.add_child(panel)
 
+func setPauseButtonProperties():
+	var pausePopUp = $PausePopUp
+	var initialOffset = 102 * 2 # center
+	var offsetX = initialOffset - 100 + 4 # offsetX += 2 + 2 * int(j % 3 == 0) = 4 in the first iteration
+	var offsetY = initialOffset - 142
+	
+	pausePopUp.rect_position = Vector2(offsetX, offsetY)
+	pausePopUp.rect_size = Vector2(SIZE * COL + 20, SIZE * ROW + 20)
+	
 func init_array():
 	array = []
 	for _i in range (GRID_SIZE):
@@ -326,6 +337,8 @@ func _on_PausePlay_pressed():
 			pauseButton.visible = true
 			playButton.visible = false
 			disableButtons(false)
+			# Remove the square on top of the gird
+			updatePausePopUp(false)
 		else:
 			pauseStartTime = OS.get_system_time_secs()
 			print("tanya, isPaused :",isPaused)
@@ -333,7 +346,12 @@ func _on_PausePlay_pressed():
 			pauseButton.visible = false
 			playButton.visible = true
 			disableButtons(true)
+			# Show a square on top of the grid
+			updatePausePopUp(true)
 
+func updatePausePopUp(show: bool):
+	$PausePopUp.visible = show
+	
 func _on_New_Game_pressed():
 	resetPopUps()
 	revertOgColor()
@@ -483,3 +501,4 @@ func simulate_button_press():
 
 		# Call the _on_button_press function with the row and column
 		_on_button_pressed(_row, _col)
+
